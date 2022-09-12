@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWebEngineWidgets import *
+import requests
 
 class hyperlink(QLabel):
     def __init__(self, parent:None):
@@ -61,7 +62,18 @@ class WebBrowser(QMainWindow):
         if not url.startswith("http"):
             url = "http://" + url
             self.url_bar.setText(url)
-        self.browser.setUrl(QUrl(url))
+        
+        self.cek(url)
+        # self.browser.setUrl(QUrl(url))
+    
+    def cek(self, urlcek):
+        r = requests.get(urlcek, allow_redirects=True)
+        if r.status_code == 200:
+            self.browser.setUrl(QUrl(urlcek))
+        elif r.status_code == 404:
+            with open('404.html', 'r') as f:
+                html = f.read
+                self.browser.setHtml(html)
 
 
 app = QApplication([])
