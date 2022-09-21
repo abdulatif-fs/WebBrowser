@@ -71,13 +71,16 @@ class WebBrowser(QMainWindow):
         username = "fasijardiq@gmail.com"
         password = "11Sandaljepit"
 
-        r = requests.get(urlcek, allow_redirects=True, auth=HTTPBasicAuth("user", "pass") )
+        r = requests.get(urlcek, allow_redirects=True, auth=HTTPBasicAuth('user', 'pass'))
         if r.status_code == 200:
             self.browser.setUrl(QUrl(urlcek))
         elif r.status_code == 404:
             with open('404.html', 'r') as f:
                 html = f.read
                 self.browser.setHtml(html)
+
+    #def loadpage(self):
+        
 
 
 app = QApplication([])
