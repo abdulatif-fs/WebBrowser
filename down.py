@@ -9,11 +9,12 @@ import requests
 #     if len(fname) == 0:
 #         return None
 #     return fname[0]
+from requests.auth import HTTPBasicAuth
 
-
-url1 = 'http://google.com/favicon.ico'
-r = requests.get(url1, allow_redirects=True)
-print(r.status_code)
+url1 = 'https://httpbin.org/basic-auth/user/pass'
+r = requests.get(url1, allow_redirects=True, auth=HTTPBasicAuth("user", "pass"))
+#print(r.status_code)
+print(r)
 # filename = getFilename_fromCd(r.headers.get('content-disposition'))
 # open(filename, 'wb').write(r.content)
 

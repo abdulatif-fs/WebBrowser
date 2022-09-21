@@ -3,6 +3,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWebEngineWidgets import *
 import requests
+from requests.auth import HTTPBasicAuth
 
 class hyperlink(QLabel):
     def __init__(self, parent:None):
@@ -67,7 +68,10 @@ class WebBrowser(QMainWindow):
         # self.browser.setUrl(QUrl(url))
     
     def cek(self, urlcek):
-        r = requests.get(urlcek, allow_redirects=True)
+        username = "fasijardiq@gmail.com"
+        password = "11Sandaljepit"
+
+        r = requests.get(urlcek, allow_redirects=True, auth=HTTPBasicAuth("user", "pass") )
         if r.status_code == 200:
             self.browser.setUrl(QUrl(urlcek))
         elif r.status_code == 404:
