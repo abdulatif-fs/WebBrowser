@@ -44,7 +44,7 @@ class Example(QWidget):
 
         self.setGeometry(300, 300, 350, 250)
         self.setWindowTitle('Abdulatif Engine')
-        pilih = input("mau 1 buka link, 2 download file, 3 cek authentikasi")
+        pilih = input("1 buka link, 2 download file, 3 cek authentikasi, 4 cek redirect. pilih mana: ")
         if pilih =='1':
             while 1:
                 url1 = input("masukkan link: ")
@@ -64,6 +64,10 @@ class Example(QWidget):
                     with open('500.html', 'r') as f:
                         html = f.read
                         self.webEngineView.setHtml(html)
+                elif r.status_code == 302:
+                    with open('302.html', 'r') as f:
+                        html = f.read
+                        self.webEngineView.setHtml(html)
                 self.show()
         elif pilih=='2':
             url2 = "https://instagram.com/favicon.ico"
@@ -76,6 +80,15 @@ class Example(QWidget):
             url3 = "https://httpbin.org/basic-auth/user/pass"
             auth = requests.get(url3, auth=HTTPBasicAuth("user", "pass"))
             print(auth)
+
+        elif pilih =="4":
+            url4 = "http://httpbin.org/redirect/3"
+            dir = requests.get(url4, allow_redirects=True)
+            dir.history
+            for direk in dir.history:
+                print(direk.status_code, direk.url)
+            print(dir.status_code, dir.url)
+            self.webEngineView.setUrl(QUrl(dir.url))
                 
 def main():
 
