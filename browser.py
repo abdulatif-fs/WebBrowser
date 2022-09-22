@@ -78,6 +78,14 @@ class WebBrowser(QMainWindow):
             with open('404.html', 'r') as f:
                 html = f.read
                 self.browser.setHtml(html)
+        elif r.status_code == 403:
+            with open('403.html', 'r') as f:
+                html = f.read
+                self.browser.setHtml(html)
+        elif r.status_code == 500:
+            with open('500.html', 'r') as f:
+                html = f.read
+                self.browser.setHtml(html)
 
     #def loadpage(self):
         

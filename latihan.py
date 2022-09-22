@@ -45,7 +45,7 @@ class Example(QWidget):
         self.setGeometry(300, 300, 350, 250)
         self.setWindowTitle('Abdulatif Engine')
         pilih = input("mau 1 buka link, 2 download file.")
-        if pilih ==1:
+        if pilih =='1':
             while 1:
                 url1 = input("masukkan link: ")
                 r = requests.get(url1, allow_redirects=True,auth=HTTPBasicAuth("user", "pass"))
@@ -56,8 +56,16 @@ class Example(QWidget):
 
                         html = f.read()
                         self.webEngineView.setHtml(html)
+                elif r.status_code == 403:
+                    with open('403.html', 'r') as f:
+                        html = f.read
+                        self.browser.setHtml(html)
+                elif r.status_code == 500:
+                    with open('500.html', 'r') as f:
+                        html = f.read
+                        self.browser.setHtml(html)
                 self.show()
-        elif pilih==2:
+        elif pilih=='2':
             url2 = "https://instagram.com/favicon.ico"
             download = requests.get(url2)
             open("instagram.ico", "wb").write(download.content)
